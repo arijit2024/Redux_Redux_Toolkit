@@ -1,21 +1,24 @@
-import { createAction, createReducer } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
-const increment = createAction('counter/increment')
-const decrement = createAction('counter/decrement')
-const incrementByAmount = createAction('counter/incrementByAmount')
+const initialState = {
+  value : 0,
+}
 
-const initialState = { value: 10 }
-
-const customReducers = createReducer(initialState, (builder) => {
-  builder
-    .addCase(increment, (state, action) => {
-      state.value++
-    })
-    .addCase(decrement, (state, action) => {
-      state.value--
-    })
-    // .addCase(incrementByAmount, (state, action) => {
-    //   state.value += action.payload
-    // })
+export const containerSlice = createSlice({
+  name : "counter",
+  initialState,
+  reducers:{
+    add: (state) => {
+      state.value +=1
+    },
+    sub: (state) => {
+      state.value -=1
+    },
+    add50 : (state,action) => {
+      state.value +=action.payload;
+    }
+  }
 })
-export default customReducers;
+
+export const {add, sub, add50} = containerSlice.actions ;
+export default containerSlice.reducer;
